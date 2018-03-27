@@ -5,8 +5,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.2'
     }
 }
 
@@ -15,7 +15,6 @@ apply plugin: 'com.google.protobuf'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.0'
 
     defaultConfig {
         minSdkVersion 21
@@ -30,14 +29,16 @@ android {
             minifyEnabled false
         }
     }
-
+    flavorDimensions('hanks')
     productFlavors {
         aosp {
+            dimension 'hanks'
             applicationId 'com.google.android.apps.nexuslauncher'
             testApplicationId 'com.android.launcher3.tests'
         }
 
         l3go {
+            dimension 'hanks'
             applicationId 'com.android.launcher3'
             testApplicationId 'com.android.launcher3.tests'
         }
@@ -82,6 +83,10 @@ android {
             manifest.srcFile "tests/AndroidManifest.xml"
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 repositories {
@@ -90,13 +95,13 @@ repositories {
     google()
 }
 
-final String SUPPORT_LIBS_VERSION = '26.0.+'
+final String SUPPORT_LIBS_VERSION = '27.0.+'
 dependencies {
     compile "com.android.support:support-v4:${SUPPORT_LIBS_VERSION}"
     compile "com.android.support:support-dynamic-animation:${SUPPORT_LIBS_VERSION}"
     compile "com.android.support:recyclerview-v7:${SUPPORT_LIBS_VERSION}"
     compile "com.android.support:palette-v7:${SUPPORT_LIBS_VERSION}"
-    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
+    compile 'com.google.protobuf.nano:protobuf-javanano:3.1.0'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile "org.mockito:mockito-core:1.9.5"
