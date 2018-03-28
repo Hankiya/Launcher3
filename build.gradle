@@ -19,16 +19,31 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 1
+        versionCode 2000
         versionName "3.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs{
+        release{
+            storeFile file('./launcher3.jks')
+            storePassword '2SAwkz6gfNWQ5K25'
+            keyAlias 'launcher3'
+            keyPassword '2SAwkz6gfNWQ5K25'
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
         }
+        release{
+            applicationIdSuffix '.hanks'
+            signingConfig signingConfigs.release
+        }
     }
+
     flavorDimensions('hanks')
     productFlavors {
         aosp {
